@@ -7,6 +7,6 @@ class TicketListInitialState extends TicketListState {}
 class TicketListLoadingState extends TicketListState {}
 
 class TicketListLoadedState extends TicketListState {
-  final List<TicketModel> tiketsData;
+  final List<NewTicketModel> tiketsData;
   TicketListLoadedState({required this.tiketsData});
 }

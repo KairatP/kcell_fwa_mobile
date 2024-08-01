@@ -8,5 +8,7 @@ class RoutingConst {
   static const String history = 'tabBar/history';
   static const String historyFilter = 'tabBar/history/historyFilter';
   static const String settings = 'tabBar/settings';
-  static const String ticketCell = 'tabBar/tickets/ticketCell';
+  static const String b2bScreen = 'tabBar/tickets/b2bScreen';
+  static const String b2cScreen = 'tabBar/tickets/b2cScreen';
+  static const String nwScreen = 'tabBar/tickets/nwScreen';
 }

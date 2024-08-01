@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:kcell_fwa_mobile/dependencies/auth_hive.dart';
+import 'package:kcell_fwa_mobile/pages/settings/bloc/settings_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/bloc/b2b_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/bloc/b2c_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/bloc/nw_bloc.dart';
+import 'package:kcell_fwa_mobile/services/repository/auth_hive.dart';
 import 'package:kcell_fwa_mobile/dependencies/injection_container.dart';
 import 'package:kcell_fwa_mobile/pages/auth/bloc/auth_bloc.dart';
 import 'package:kcell_fwa_mobile/pages/tabBar/bloc/tabbar_bloc.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/bloc/ticket_list_bloc.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/bloc/ticket_cell_bloc.dart';
 import 'package:kcell_fwa_mobile/router/router.dart';
 import 'package:kcell_fwa_mobile/router/routing_constant.dart';
 
@@ -38,11 +41,20 @@ class MyApp extends StatelessWidget {
               TicketListBloc()..add(MyTicketListEvent()),
         ),
         BlocProvider(
-          create: (context) => TicketCellBloc(),
+          create: (context) => B2BBloc(),
+        ),
+        BlocProvider(
+          create: (context) => B2CBloc(),
+        ),
+        BlocProvider(
+          create: (context) => NWBloc(),
         ),
         BlocProvider(
           create: (context) => AuthBloc()..add(MyAuthEvent()),
-        )
+        ),
+        BlocProvider(
+          create: (context) => SettingsBloc()
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
