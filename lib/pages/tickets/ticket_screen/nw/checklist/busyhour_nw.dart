@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/divider.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/textfield_cell.dart';
 
-class ChecklistBusyHour extends StatelessWidget {
-  const ChecklistBusyHour({super.key});
+class BusyHourNW extends StatelessWidget {
+  const BusyHourNW({super.key});
  
   @override
   Widget build(BuildContext context) {

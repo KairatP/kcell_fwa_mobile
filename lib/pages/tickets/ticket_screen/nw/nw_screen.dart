@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checklist_b2b.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checlist_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2b.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_nw.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/bloc/nw_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/bloc/network_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/tickes/status_nw.dart';
 
-import 'checklist/checklist_busyhour.dart';
+import 'checklist/busyhour_nw.dart';
 import 'checklist/checklist_nw.dart';
-import 'checklist/close_ticket.dart';
+import 'checklist/close_nw.dart';
 import 'tickes/address_nw.dart';
-import 'tickes/customer_address_b2b.dart';
-import 'tickes/customer_address_b2c.dart';
- 
 
 class NWScreen extends StatelessWidget {
   const NWScreen({super.key});
@@ -43,9 +36,14 @@ class NWScreen extends StatelessWidget {
               centerTitle: true,
               actions: [
                 IconButton(
+                  focusColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
                     icon: const Icon(Icons.save_rounded),
                     tooltip: 'Сохранить изменения',
-                    onPressed: () {}
+                    onPressed: () {
+                      print("save click");
+                    }
                 ),
               ],
               bottom: TabBar(
@@ -77,31 +75,11 @@ class NWScreen extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                state.tiketsData.ticketType == 'B2B'
-                    ? TicketB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? TicketB2C(ticketData: state.tiketsData)
-                        : TicketNW(ticketData: state.tiketsData),
-                // Address tab view
-                state.tiketsData.ticketType == 'B2B'
-                    ? CustomerAddressB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? CustomerAddressB2C(ticketData: state.tiketsData)
-                        : AddressNW(ticketData: state.tiketsData),
-                /// checklist part
-                state.tiketsData.ticketType == 'B2B'
-                    ? ChecklistB2B(ticketData: state.tiketsData, networkSelectionAction: (value) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? ChecklistB2C(
-                            ticketData: state.tiketsData,
-                            networkSelectionAction: (value) =>
-                                b2cNetworkSelectionAction(context, value,
-                                    'networkSelection', state.tiketsData),
-                            faltActionType: state.networkType,
-                          )
-                        : ChecklistNW(ticketData: state.tiketsData, networkSelectionAction: (value ) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,),
-                const ChecklistBusyHour(),
-                const CloseTheTicket(),
+                NWStatusNW(ticketData: state.tiketsData),
+                AddressNW(ticketData: state.tiketsData),
+                ChecklistNW(ticketData: state.tiketsData, networkSelectionAction: (value ) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.tiketsData.fieldWorkAction,),
+                const BusyHourNW(),
+                const CloseNW(),
               ],
             ),
           ),

@@ -3,8 +3,8 @@ import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/divider.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/text_cell.dart';
 
-class TicketB2B extends StatelessWidget {
-  const TicketB2B({super.key, required this.ticketData});
+class NWStatusNW extends StatelessWidget {
+  const NWStatusNW({super.key, required this.ticketData});
   final NewTicketModel ticketData;
  
   @override
@@ -37,8 +37,8 @@ class TicketB2B extends StatelessWidget {
   }
 }
 
-// class TicketB2B extends StatelessWidget {
-//   const TicketB2B({super.key, required this.ticketData});
+// class TicketNW extends StatelessWidget {
+//   const TicketNW({super.key, required this.ticketData});
 //   final NewTicketModel ticketData;
 
 //   @override

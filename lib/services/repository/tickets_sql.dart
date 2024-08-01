@@ -27,7 +27,7 @@ class TicketsSQL implements TicketsSqlInterface {
         db.execute(
           '''CREATE TABLE history_tickets_list (
             id INTEGER PRIMARY KEY, 
-            ticketNumber TEXT NOT NULL
+            ticketNumber TEXT NOT NULL,
             ticketRecivedDate TEXT NOT NULL
           )''',
         );
@@ -38,7 +38,7 @@ class TicketsSQL implements TicketsSqlInterface {
             ticketRecivedDate TEXT NOT NULL,
             ticketType TEXT,
             serviceTypeKcell TEXT,
-            ticketDateSetupDate: '',
+            ticketSetupDate TEXT,
             regionName TEXT,
             subareaName TEXT,
             oblastName TEXT,
@@ -83,7 +83,7 @@ class TicketsSQL implements TicketsSqlInterface {
             ticketRecivedDate TEXT NOT NULL,
             ticketType TEXT,
             serviceTypeKcell TEXT,
-            ticketDateSetupDate: '',
+            ticketSetupDate TEXT,
             regionName TEXT,
             subareaName TEXT,
             oblastName TEXT,
@@ -116,7 +116,7 @@ class TicketsSQL implements TicketsSqlInterface {
             customerRequestType TEXT,
             customerComplainceType TEXT,
             fieldEngineerComent TEXT,
-            fieldWorkAction TEXT,
+            fieldWorkAction TEXT
           )''',
         );
       },

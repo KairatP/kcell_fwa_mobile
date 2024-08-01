@@ -1,4 +1,4 @@
-part of 'nw_bloc.dart';
+part of 'network_bloc.dart';
 
 abstract class NWEvent {}
  

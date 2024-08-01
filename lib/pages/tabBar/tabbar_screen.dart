@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/history/bloc/history_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/history/history_screen.dart';
 import 'package:kcell_fwa_mobile/pages/settings/bloc/settings_bloc.dart';
 import 'package:kcell_fwa_mobile/pages/settings/settings_screen.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/bloc/ticket_list_bloc.dart';
@@ -16,9 +18,7 @@ class TabBarScreen extends StatelessWidget {
         body: const TabBarView(
           children: <Widget>[
             TicketListScreen(),
-            Center(
-              child: Text("History of tickets"),
-            ),
+            HistoryScreen(),
             SettingsScreen()
           ],
         ),
@@ -50,7 +50,8 @@ class TabBarScreen extends StatelessWidget {
         final myTiketListBloc = BlocProvider.of<TicketListBloc>(context);
         myTiketListBloc.add(MyTicketListEvent());
       case 1:
-        break;
+        final myHistoryBloc = BlocProvider.of<HistoryBloc>(context);
+        myHistoryBloc.add(MyHistoryEvent());
       case 2:
         final myTiketListBloc = BlocProvider.of<SettingsBloc>(context);
         myTiketListBloc.add(LoadSettingsEvent());

@@ -10,3 +10,8 @@ class TicketListLoadedState extends TicketListState {
   final List<NewTicketModel> tiketsData;
   TicketListLoadedState({required this.tiketsData});
 }
+
+class TicketListErrorState extends TicketListState {
+  final String error;
+  TicketListErrorState({required this.error});
+}

@@ -213,7 +213,7 @@ List<NewTicketModel> generateFakeData(int count) {
       customerComplainceType: 'Low Speed',
       fieldEngineerComent: 'Issue resolved',
       fieldWorkAction: 'Optimized Network Settings',
-      ticketNumber: '$i wfesfmslgfrlk evrevref er fger g re g reg erklg ekrl hrt hlkyj tyj tylj tl yj kyt j ytj tyj ltylj kltyk jtyj ktyjk ltyj ktyjytj',
+      ticketNumber: '$i',
       ticketRecivedDate: DateTime.now().toString(),
       ticketType: i / 3 % 2 == 0
           ? 'NW'

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/divider.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/text_cell.dart';
 
-class CloseTheTicket extends StatelessWidget {
-  const CloseTheTicket({super.key});
+class CloseNW extends StatelessWidget {
+  const CloseNW({super.key});
  
   @override
   Widget build(BuildContext context) {

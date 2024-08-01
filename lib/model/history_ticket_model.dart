@@ -2,6 +2,7 @@ class HistoryTicketModel {
   int? id;
   String ticketNumber;
   String ticketRecivedDate;
+  String ticketSetupDate;
   String ticketType;
   String serviceTypeKcell;
   String regionName;
@@ -42,6 +43,7 @@ class HistoryTicketModel {
     this.id,
     required this.ticketNumber,
     required this.ticketRecivedDate,
+    required this.ticketSetupDate,
     required this.ticketType,
     required this.serviceTypeKcell,
     required this.regionName,
@@ -85,6 +87,7 @@ class HistoryTicketModel {
       'id': id,
       'ticketNumber': ticketNumber,
       'ticketRecivedDate': ticketRecivedDate,
+      'ticketSetupDate': ticketSetupDate,
       'ticketType': ticketType,
       'serviceTypeKcell': serviceTypeKcell,
       'regionName': regionName,
@@ -129,6 +132,7 @@ class HistoryTicketModel {
       id: map['id'],
       ticketNumber: map['ticketNumber'],
       ticketRecivedDate: map['ticketRecivedDate'], 
+      ticketSetupDate: map['ticketSetupDate'],
       ticketType: map['ticketType'],
       serviceTypeKcell: map['serviceTypeKcell'],
       regionName: map['regionName'],
