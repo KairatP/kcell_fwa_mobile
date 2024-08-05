@@ -20,9 +20,19 @@ class B2CBloc extends Bloc<B2CEvent, B2CState> {
 
   Future<void> _onB2CSelectionEvent(
       B2CSelectionEvent event, Emitter<B2CState> emit) async {
-    if (event.typeRequest == 'networkSelection') {
+    if (event.selectionType == 'networkSelection') {
       emit(B2CLoadedState(
           tiketsData: event.ticketsData, networkType: event.selectedData));
     }
   }
+
+  // final TextEditingController rbsTextEditingController; 
+  // final TextEditingController sectorTextEditingController;
+  // final TextEditingController customerComplainsOtheTextEditingController;
+  // final TextEditingController dataSpeedTextEditingController;
+  // final TextEditingController fieldActionOtheTextEditingController;
+  // final TextEditingController beforeActionDataSpeedTextEditingController;
+  // final TextEditingController bHourDataSpeedController;
+  // final TextEditingController dataSpeedBHController;
+
 }

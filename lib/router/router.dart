@@ -5,6 +5,7 @@ import 'package:kcell_fwa_mobile/pages/history/history_screen.dart';
 import 'package:kcell_fwa_mobile/pages/settings/settings_screen.dart';
 import 'package:kcell_fwa_mobile/pages/tabBar/tabbar_screen.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_list_screen.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/b2b_screen.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/b2c_screen.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/nw_screen.dart';
 
@@ -47,7 +48,7 @@ class MetaRouter {
         );
       case RoutingConst.b2bScreen:
         return MaterialPageRoute(
-          builder: (context) => const B2CScreen(),
+          builder: (context) => const B2BScreen(),
           settings: routeSettings,
         );
       case RoutingConst.b2cScreen:

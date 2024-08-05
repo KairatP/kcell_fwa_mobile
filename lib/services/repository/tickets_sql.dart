@@ -72,6 +72,8 @@ class TicketsSQL implements TicketsSqlInterface {
             customerComplainceType TEXT,
             fieldEngineerComent TEXT,
             fieldWorkAction TEXT,
+            customerRequestTypeOnother TEXT,
+            fieldWorkActionOnother TEXT,
             newTicketsListId INTEGER NOT NULL,
             FOREIGN KEY(newTicketsListId) REFERENCES new_tickets_list(id)
           )''',
@@ -97,12 +99,7 @@ class TicketsSQL implements TicketsSqlInterface {
             lat TEXT,
             long TEXT,
             description TEXT,
-            creatorName TEXT,
             networkType TEXT,
-            rSRQ TEXT,
-            rSRP TEXT,
-            rSSI TEXT,
-            sINR TEXT,
             buisyHours TEXT,
             buisyHoursDataSpeed TEXT,
             networkMesureTime TEXT,
@@ -114,9 +111,24 @@ class TicketsSQL implements TicketsSqlInterface {
             testQualityValueBefore TEXT,
             testQualityValueAfter TEXT,
             customerRequestType TEXT,
-            customerComplainceType TEXT,
-            fieldEngineerComent TEXT,
-            fieldWorkAction TEXT
+            fieldWorkAction TEXT,
+            customerRequestTypeOther TEXT,
+            fieldWorkActionOther TEXT
+            description TEXT,
+            creatorName TEXT,
+            beforeRSRQ TEXT,
+            beforeRSRP TEXT,
+            beforeRSSI TEXT,
+            beforeSINR TEXT,
+            afterRSRQ TEXT,
+            afterRSRP TEXT,
+            afterRSSI TEXT,
+            afterSINR TEXT,
+            beforeNetworkQuality TEXT,
+            afterNetworkQuality TEXT,
+            comersialRecomendation TEXT,
+            nwImprovmentRecomendation TEXT,
+            complianceHistory TEXT
           )''',
         );
       },
@@ -135,7 +147,7 @@ class TicketsSQL implements TicketsSqlInterface {
   }
 
   @override
-  Future<void> updateNewTicketData(String id, NewTicketModel ticketData) async {
+  Future<void> updateNewTicketData(int id, NewTicketModel ticketData) async {
     final Database db = await databaseCheck;
 
     await db.update(
@@ -155,7 +167,6 @@ class TicketsSQL implements TicketsSqlInterface {
       return NewTicketModel.fromMap(maps[i]);
     });
   }
-
 
   @override
   Future<void> deleteNewTicketDataById(String ticketId) async {
@@ -179,14 +190,14 @@ class TicketsSQL implements TicketsSqlInterface {
   }
 
   @override
-  Future<void> addHistoryTicketsListData(HistoryTicketsListModel historyTicketsList) async {
+  Future<void> addHistoryTicketsListData(
+      HistoryTicketsListModel historyTicketsList) async {
     final Database db = await databaseCheck;
 
     await db.insert(
       'history_tickets_list',
       historyTicketsList.toMap(),
     );
-
   }
 
   @override
@@ -202,10 +213,12 @@ class TicketsSQL implements TicketsSqlInterface {
   }
 
   @override
-  Future<List<HistoryTicketModel>> getHistoryTicketsByHistoryTicketsListId(int id) async {
+  Future<List<HistoryTicketModel>> getHistoryTicketsByHistoryTicketsListId(
+      int id) async {
     final Database db = await databaseCheck;
 
-    final List<Map<String, dynamic>> maps = await db.query('history_tickets', where: 'historyTicketsListId = ?', whereArgs: [id]);
+    final List<Map<String, dynamic>> maps = await db.query('history_tickets',
+        where: 'historyTicketsListId = ?', whereArgs: [id]);
     return List.generate(maps.length, (i) {
       return HistoryTicketModel.fromMap(maps[i]);
     });
@@ -215,9 +228,20 @@ class TicketsSQL implements TicketsSqlInterface {
   Future<List<HistoryTicketsListModel>> getHistoryTicketsListAllData() async {
     final Database db = await databaseCheck;
 
-    final List<Map<String, dynamic>> maps = await db.query('history_tickets_list');
+    final List<Map<String, dynamic>> maps =
+        await db.query('history_tickets_list');
     return List.generate(maps.length, (i) {
       return HistoryTicketsListModel.fromMap(maps[i]);
+    });
+  }
+
+  @override
+  Future<List<NewTicketModel>> getNewTicketById(int id) async {
+    final Database db = await databaseCheck;
+    final List<Map<String, dynamic>> maps = await db.query('new_tickets',
+        where: 'id = ?', whereArgs: [id]);
+    return List.generate(maps.length, (i) {
+      return NewTicketModel.fromMap(maps[i]);
     });
   }
 }

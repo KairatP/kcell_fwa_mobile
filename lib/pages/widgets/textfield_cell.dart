@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class TextFieldCell extends StatelessWidget {
+  final TextEditingController myTextController;
+  final Function(String) myTextChange;
   const TextFieldCell({
+    required this.myTextController,
+    required this.myTextChange,
     super.key,
   });
 
@@ -12,10 +16,11 @@ class TextFieldCell extends StatelessWidget {
       height: 40,
       child: Align(
         child: TextField(
+          controller: myTextController,
+          onChanged: (value) => myTextChange(value),
           decoration: InputDecoration(
             filled: true,
-            fillColor:
-                Colors.white, // Set the background color here
+            fillColor: Colors.white, // Set the background color here
             contentPadding: const EdgeInsets.all(10),
             focusColor: Colors.black,
             hoverColor: Colors.black,

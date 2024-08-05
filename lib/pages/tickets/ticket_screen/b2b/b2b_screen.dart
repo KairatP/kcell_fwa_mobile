@@ -1,53 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checklist_b2b.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checlist_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2b.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_nw.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/bloc/ticket_list_bloc.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/checklist/checklist_customer_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/checklist/checklist_office_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/checklist/close_ticket_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/checklist/measurements_before_work_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/tickes/customer_address_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2b/tickes/ticket_b2b.dart';
 
 import 'bloc/b2b_bloc.dart';
-import 'checklist/checklist_busyhour.dart';
-import 'checklist/checklist_nw.dart';
-import 'checklist/close_ticket.dart';
-import 'tickes/address_nw.dart';
-import 'tickes/customer_address_b2b.dart';
-import 'tickes/customer_address_b2c.dart';
- 
 
 class B2BScreen extends StatelessWidget {
   const B2BScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<B2BBloc, B2BState>(
-        builder: (context, state) {
+    return BlocBuilder<B2BBloc, B2BState>(builder: (context, state) {
       if (state is B2BInitialState) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is B2BLoadingState) {
         return const Center(child: CircularProgressIndicator());
       } else if (state is B2BLoadedState) {
         return DefaultTabController(
-          length: 5,
+          length: 6,
           child: Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => backNavigationAction(context),
+              ),
               title: Text(
-                state.tiketsData.ticketType.length > 3 ? state.tiketsData.ticketType.substring(0, 3) : state.tiketsData.ticketType,
+                state.tiketsData.ticketType.length > 3
+                    ? state.tiketsData.ticketType.substring(0, 3)
+                    : state.tiketsData.ticketType,
                 textAlign: TextAlign.center,
-
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               centerTitle: true,
-              actions: [
-                IconButton(
-                    icon: const Icon(Icons.save_rounded),
-                    tooltip: 'Сохранить изменения',
-                    onPressed: () {}
-                ),
-              ],
               bottom: TabBar(
                 splashFactory: NoSplash.splashFactory,
                 overlayColor: MaterialStateProperty.all(Colors.transparent),
@@ -64,10 +56,13 @@ class B2BScreen extends StatelessWidget {
                     text: 'Адрес абонента',
                   ),
                   Tab(
-                    text: 'Checklist',
+                    text: 'Чеклист офис',
                   ),
                   Tab(
-                    text: 'Checklist по ЧНН',
+                    text: 'Замеры до проделанных работ',
+                  ),
+                  Tab(
+                    text: 'Чеклист абонент',
                   ),
                   Tab(
                     text: 'Закрыть билет',
@@ -77,31 +72,38 @@ class B2BScreen extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                state.tiketsData.ticketType == 'B2B'
-                    ? TicketB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? TicketB2C(ticketData: state.tiketsData)
-                        : TicketNW(ticketData: state.tiketsData),
-                // Address tab view
-                state.tiketsData.ticketType == 'B2B'
-                    ? CustomerAddressB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? CustomerAddressB2C(ticketData: state.tiketsData)
-                        : AddressNW(ticketData: state.tiketsData),
-                /// checklist part
-                state.tiketsData.ticketType == 'B2B'
-                    ? ChecklistB2B(ticketData: state.tiketsData, networkSelectionAction: (value) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? ChecklistB2C(
-                            ticketData: state.tiketsData,
-                            networkSelectionAction: (value) =>
-                                b2cNetworkSelectionAction(context, value,
-                                    'networkSelection', state.tiketsData),
-                            faltActionType: state.networkType,
-                          )
-                        : ChecklistNW(ticketData: state.tiketsData, networkSelectionAction: (value ) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,),
-                const ChecklistBusyHour(),
-                const CloseTheTicket(),
+                // ticket
+                TicketB2B(ticketData: state.tiketsData),
+                // customer address
+                CustomerAddressB2B(ticketData: state.tiketsData),
+
+                // checklist office
+                ChecklistOfficeB2B(
+                    ticketData: state.tiketsData,
+                    selectionAction: (valu , selectionType ) => b2bSelectionAction(context, valu, selectionType, state.tiketsData), 
+                    hourOfDataSpeedMesurmentController: state.hourOfDataSpeedMesurmentController, 
+                    dataSpeedBHController: state.dataSpeedBHController,
+                ),
+
+                // measurements before work
+                MeasurementsBeforeWorkB2B(
+                    ticketData: state.tiketsData,
+                    selectionAction: (valu , selectionType ) => b2bSelectionAction(context, valu, selectionType, state.tiketsData),
+                    beforeActionDataSpeedTextEditingController: state.beforeActionDataSpeedTextEditingController, 
+                  ),
+
+                // checklist customer
+                ChecklistCustomerB2B(
+                  ticketData: state.tiketsData,
+                  customerChecklistSelectionAction: (valu , selectionType ) => b2bSelectionAction(context, valu, selectionType, state.tiketsData), 
+                  rbsTextEditingController: state.rbsTextEditingController, 
+                  sectorTextEditingController: state.sectorTextEditingController, 
+                  customerComplainsOtheTextEditingController: state.customerComplainsOtheTextEditingController, 
+                  afterWorkDataSpeedTextEditingController: state.afterWorkDataSpeedTextEditingController, 
+                  fieldActionOtheTextEditingController: state.fieldActionOtheTextEditingController,
+                ),
+
+                CloseTheTicketB2B(myData: state.tiketsData,),
               ],
             ),
           ),
@@ -110,14 +112,18 @@ class B2BScreen extends StatelessWidget {
       return const Center(child: Text("Something wrong ..."));
     });
   }
-  b2cNetworkSelectionAction(BuildContext context, String value,
-    String typeRequest, NewTicketModel data) {
+
+  b2bSelectionAction(BuildContext context, String value,
+      String selectionType, NewTicketModel data) {
     final myTiketCellBloc = BlocProvider.of<B2BBloc>(context);
 
     myTiketCellBloc.add(B2BSelectionEvent(
-      typeRequest: typeRequest, selectedData: value, ticketsData: data));
+        selectionType: selectionType, value: value, ticketsData: data));
   }
-
+  
+  backNavigationAction(BuildContext context) {
+    final myTiketListBloc = BlocProvider.of<TicketListBloc>(context);
+        myTiketListBloc.add(MyTicketListEvent());
+    Navigator.pop(context);
+  }
 }
-
- 

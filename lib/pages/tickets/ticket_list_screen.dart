@@ -143,7 +143,7 @@ class TicketsListWidget extends StatelessWidget {
       myB2CBloc.add(MyB2CEvent(tiketsData: ticketData));
       Navigator.pushNamed(
         context,
-        RoutingConst.b2bScreen,
+        RoutingConst.b2cScreen,
       );
     } else if (ticketData.ticketType == 'B2B') {
       final myB2BBloc = BlocProvider.of<B2BBloc>(context);

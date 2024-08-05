@@ -21,6 +21,16 @@ class AppColors {
   static const darkTabBarIconColor = Color.fromARGB(255, 180, 210, 245);
   static const settingsTextActionMainColor = Color.fromARGB(255, 24, 94, 82);
   static const kcellMain = Color.fromARGB(255, 70, 0, 124);
+  static const backgroundChecklistOffice = Color.fromARGB(55, 248, 131, 121);
+  static const selectorTitleFontColor = Color.fromARGB(255, 120, 120, 120);
+  static const selectorFontColor = Color.fromARGB(255, 0, 3, 50);
+  static const backgroundTicketInformation = Color.fromARGB(255, 155, 185, 170);
+  static const backgroundTicketAddress = Color.fromARGB(255, 193, 230, 250);
+  static const ticketTitleFontColor = Color.fromARGB(255, 80, 80, 80);
+  static const ticketAddressValueFontColor = Color.fromARGB(255, 0, 18, 32);
+  static const backgroundMeasurementsBeforeWork = Color.fromARGB(105, 197, 220, 156);
+  static const backgroundChecklistCustomer = Color.fromARGB(55, 116, 219, 227);
+  static const backgroundTicketClose = Color.fromARGB(55, 107, 90, 229);
   
 
   static const Gradient linearGradient = LinearGradient(

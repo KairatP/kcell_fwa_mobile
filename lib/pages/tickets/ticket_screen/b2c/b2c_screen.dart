@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/bloc/b2c_bloc.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checklist_b2b.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checlist_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2b.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/checklist_customer_b2c.dart';
+import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/checklist/measurements_before_work_b2c.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_b2c.dart';
-import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/b2c/tickes/ticket_nw.dart';
-
-import 'checklist/checklist_busyhour.dart';
-import 'checklist/checklist_nw.dart';
-import 'checklist/close_ticket.dart';
-import 'tickes/address_nw.dart';
-import 'tickes/customer_address_b2b.dart';
+import 'checklist/checklist_office_b2c.dart';
+import 'checklist/close_ticket_b2c.dart';
 import 'tickes/customer_address_b2c.dart';
  
 
@@ -29,7 +23,7 @@ class B2CScreen extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       } else if (state is B2CLoadedState) {
         return DefaultTabController(
-          length: 5,
+          length: 6,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -64,10 +58,13 @@ class B2CScreen extends StatelessWidget {
                     text: 'Адрес абонента',
                   ),
                   Tab(
-                    text: 'Checklist',
+                    text: 'Чеклист офис',
                   ),
                   Tab(
-                    text: 'Checklist по ЧНН',
+                    text: 'Замеры до проделанных работ',
+                  ),
+                  Tab(
+                    text: 'Чеклист абонент',
                   ),
                   Tab(
                     text: 'Закрыть билет',
@@ -77,31 +74,38 @@ class B2CScreen extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                state.tiketsData.ticketType == 'B2B'
-                    ? TicketB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? TicketB2C(ticketData: state.tiketsData)
-                        : TicketNW(ticketData: state.tiketsData),
+                TicketB2C(ticketData: state.tiketsData),
+
                 // Address tab view
-                state.tiketsData.ticketType == 'B2B'
-                    ? CustomerAddressB2B(ticketData: state.tiketsData)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? CustomerAddressB2C(ticketData: state.tiketsData)
-                        : AddressNW(ticketData: state.tiketsData),
-                /// checklist part
-                state.tiketsData.ticketType == 'B2B'
-                    ? ChecklistB2B(ticketData: state.tiketsData, networkSelectionAction: (value) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,)
-                    : state.tiketsData.ticketType == 'B2C'
-                        ? ChecklistB2C(
-                            ticketData: state.tiketsData,
-                            networkSelectionAction: (value) =>
-                                b2cNetworkSelectionAction(context, value,
-                                    'networkSelection', state.tiketsData),
-                            faltActionType: state.networkType,
-                          )
-                        : ChecklistNW(ticketData: state.tiketsData, networkSelectionAction: (value ) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.networkType,),
-                const ChecklistBusyHour(),
-                const CloseTheTicket(),
+                CustomerAddressB2C(ticketData: state.tiketsData),
+
+                /// checklist office
+                ChecklistOfficeB2C( 
+                  ticketData: state.tiketsData,
+                  selectionAction: (value, selectionType) => b2cSelectionAction(
+                    context, value,
+                    selectionType, 
+                    state.tiketsData
+                  ), 
+                  bHourDataSpeedController: TextEditingController(), 
+                  dataSpeedBHController: TextEditingController(),
+                ),
+
+                // measurements before work
+                MeasurementsBeforeWorkB2C( ticketData: state.tiketsData,
+                  selectionAction: (value, selectionType) =>
+                      b2cSelectionAction(context, value,
+                          'networkSelection', state.tiketsData),
+                  beforeActionDataSpeedTextEditingController: TextEditingController(),),
+
+                // checklist customer
+                ChecklistCustomerB2C( ticketData: state.tiketsData,
+                  customerChecklistSelectionAction: (value, selectionType) =>
+                      b2cSelectionAction(context, value,
+                          'networkSelection', state.tiketsData),
+                  rbsTextEditingController: TextEditingController(), sectorTextEditingController: TextEditingController(), customerComplainsOtheTextEditingController: TextEditingController(), dataSpeedTextEditingController: TextEditingController(), fieldActionOtheTextEditingController: TextEditingController(),),
+
+                const CloseTheTicketB2C(),
               ],
             ),
           ),
@@ -110,12 +114,12 @@ class B2CScreen extends StatelessWidget {
       return const Center(child: Text("Something wrong ..."));
     });
   }
-  b2cNetworkSelectionAction(BuildContext context, String value,
-    String typeRequest, NewTicketModel data) {
+  b2cSelectionAction(BuildContext context, String value,
+      String selectionType, NewTicketModel data) {
     final myTiketCellBloc = BlocProvider.of<B2CBloc>(context);
 
     myTiketCellBloc.add(B2CSelectionEvent(
-      typeRequest: typeRequest, selectedData: value, ticketsData: data));
+      selectionType: selectionType, selectedData: value, ticketsData: data));
   }
 
 }

@@ -4,10 +4,10 @@ abstract class B2CEvent {}
  
 class B2CSelectionEvent extends B2CEvent {
   B2CSelectionEvent(
-      {required this.typeRequest,
+      {required this.selectionType,
       required this.selectedData,
       required this.ticketsData});
-  final String typeRequest;
+  final String selectionType;
   final String selectedData;
   final NewTicketModel ticketsData;
 }

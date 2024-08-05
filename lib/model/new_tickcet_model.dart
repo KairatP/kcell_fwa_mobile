@@ -20,10 +20,16 @@ class NewTicketModel {
   String description;
   String creatorName;
   String networkType;
-  String rSRQ;
-  String rSRP;
-  String rSSI;
-  String sINR;
+  String beforeRSRQ;
+  String beforeRSRP;
+  String beforeRSSI;
+  String beforeSINR;
+  String afterRSRQ;
+  String afterRSRP;
+  String afterRSSI;
+  String afterSINR;
+  String beforeNetworkQuality;
+  String afterNetworkQuality;
   String buisyHours;
   String buisyHoursDataSpeed;
   String networkMesureTime;
@@ -35,9 +41,14 @@ class NewTicketModel {
   String testQualityValueBefore;
   String testQualityValueAfter;
   String customerRequestType;
-  String customerComplainceType;
-  String fieldEngineerComent;
+  String customerRequestTypeOther;
+  // String customerComplainceType;
+  // String fieldEngineerComent;
   String fieldWorkAction;
+  String fieldWorkActionOther;
+  String comersialRecomendation;
+  String nwImprovmentRecomendation;
+  String complianceHistory;
   NewTicketModel({
     this.id,
     required this.ticketNumber,
@@ -60,10 +71,16 @@ class NewTicketModel {
     required this.description,
     required this.creatorName,
     required this.networkType,
-    required this.rSRQ,
-    required this.rSRP,
-    required this.rSSI,
-    required this.sINR,
+    required this.beforeRSRQ,
+    required this.beforeRSRP,
+    required this.beforeRSSI,
+    required this.beforeSINR,
+    required this.afterRSRQ,
+    required this.afterRSRP,
+    required this.afterRSSI,
+    required this.afterSINR,
+    required this.beforeNetworkQuality,
+    required this.afterNetworkQuality,
     required this.buisyHours,
     required this.buisyHoursDataSpeed,
     required this.networkMesureTime,
@@ -75,12 +92,17 @@ class NewTicketModel {
     required this.testQualityValueBefore,
     required this.testQualityValueAfter,
     required this.customerRequestType,
-    required this.customerComplainceType,
-    required this.fieldEngineerComent,
+    required this.customerRequestTypeOther,
+    // required this.customerComplainceType,
+    // required this.fieldEngineerComent,
     required this.fieldWorkAction,
-    });
+    required this.fieldWorkActionOther,
+    required this.comersialRecomendation,
+    required this.nwImprovmentRecomendation,
+    required this.complianceHistory,
+  });
 
-    Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'ticketNumber': ticketNumber,
@@ -103,10 +125,16 @@ class NewTicketModel {
       'description': description,
       'creatorName': creatorName,
       'networkType': networkType,
-      'rSRQ': rSRQ,
-      'rSRP': rSRP,
-      'rSSI': rSSI,
-      'sINR': sINR,
+      'beforeRSRQ': beforeRSRQ,
+      'beforeRSRP': beforeRSRP,
+      'beforeRSSI': beforeRSSI,
+      'beforeSINR': beforeSINR,
+      'afterRSRQ': afterRSRQ,
+      'afterRSRP': afterRSRP,
+      'afterRSSI': afterRSSI,
+      'afterSINR': afterSINR,
+      'beforeNetworkQuality': beforeNetworkQuality,
+      'afterNetworkQuality': afterNetworkQuality,
       'buisyHours': buisyHours,
       'buisyHoursDataSpeed': buisyHoursDataSpeed,
       'networkMesureTime': networkMesureTime,
@@ -118,9 +146,14 @@ class NewTicketModel {
       'testQualityValueBefore': testQualityValueBefore,
       'testQualityValueAfter': testQualityValueAfter,
       'customerRequestType': customerRequestType,
-      'customerComplainceType': customerComplainceType,
-      'fieldEngineerComent': fieldEngineerComent,
+      // 'customerComplainceType': customerComplainceType,
+      // 'fieldEngineerComent': fieldEngineerComent,
       'fieldWorkAction': fieldWorkAction,
+      'fieldWorkActionOther': fieldWorkActionOther,
+      'customerRequestTypeOther': customerRequestTypeOther,
+      'comersialRecomendation': comersialRecomendation,
+      'nwImprovmentRecomendation': nwImprovmentRecomendation,
+      'complianceHistory': complianceHistory,
     };
   }
 
@@ -128,7 +161,7 @@ class NewTicketModel {
     return NewTicketModel(
       id: map['id'],
       ticketNumber: map['ticketNumber'],
-      ticketRecivedDate: map['ticketRecivedDate'], 
+      ticketRecivedDate: map['ticketRecivedDate'],
       ticketSetupDate: map['ticketSetupDate'],
       ticketType: map['ticketType'],
       serviceTypeKcell: map['serviceTypeKcell'],
@@ -147,10 +180,16 @@ class NewTicketModel {
       description: map['description'],
       creatorName: map['creatorName'],
       networkType: map['networkType'],
-      rSRQ: map['rSRQ'],
-      rSRP: map['rSRP'],
-      rSSI: map['rSSI'],
-      sINR: map['sINR'],
+      beforeRSRQ: map['beforeRSRQ'],
+      beforeRSRP: map['beforeRSRP'],
+      beforeRSSI: map['beforeRSSI'],
+      beforeSINR: map['beforeSINR'],
+      afterRSRQ: map['afterRSRQ'],
+      afterRSRP: map['afterRSRP'],
+      afterRSSI: map['afterRSSI'],
+      afterSINR: map['afterSINR'],
+      beforeNetworkQuality: map['beforeNetworkQuality'],
+      afterNetworkQuality: map['afterNetworkQuality'],
       buisyHours: map['buisyHours'],
       buisyHoursDataSpeed: map['buisyHoursDataSpeed'],
       networkMesureTime: map['networkMesureTime'],
@@ -162,9 +201,14 @@ class NewTicketModel {
       testQualityValueBefore: map['testQualityValueBefore'],
       testQualityValueAfter: map['testQualityValueAfter'],
       customerRequestType: map['customerRequestType'],
-      customerComplainceType: map['customerComplainceType'],
-      fieldEngineerComent: map['fieldEngineerComent'],
+      // customerComplainceType: map['customerComplainceType'],
+      // fieldEngineerComent: map['fieldEngineerComent'],
       fieldWorkAction: map['fieldWorkAction'],
+      fieldWorkActionOther: map['fieldWorkActionOther'],
+      customerRequestTypeOther: map['customerRequestTypeOther'],
+      comersialRecomendation: map['comersialRecomendation'],
+      nwImprovmentRecomendation: map['nwImprovmentRecomendation'],
+      complianceHistory: map['complianceHistory'],
     );
   }
 }

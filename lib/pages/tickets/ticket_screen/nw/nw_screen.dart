@@ -4,7 +4,6 @@ import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/bloc/network_bloc.dart';
 import 'package:kcell_fwa_mobile/pages/tickets/ticket_screen/nw/tickes/status_nw.dart';
 
-import 'checklist/busyhour_nw.dart';
 import 'checklist/checklist_nw.dart';
 import 'checklist/close_nw.dart';
 import 'tickes/address_nw.dart';
@@ -22,7 +21,7 @@ class NWScreen extends StatelessWidget {
         return const Center(child: CircularProgressIndicator());
       } else if (state is NWLoadedState) {
         return DefaultTabController(
-          length: 5,
+          length: 4,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -59,13 +58,10 @@ class NWScreen extends StatelessWidget {
                     text: 'Информация о билете',
                   ),
                   Tab(
-                    text: 'Адрес абонента',
+                    text: 'Адрес обследования',
                   ),
                   Tab(
-                    text: 'Checklist',
-                  ),
-                  Tab(
-                    text: 'Checklist по ЧНН',
+                    text: 'Чеклист',
                   ),
                   Tab(
                     text: 'Закрыть билет',
@@ -78,7 +74,6 @@ class NWScreen extends StatelessWidget {
                 NWStatusNW(ticketData: state.tiketsData),
                 AddressNW(ticketData: state.tiketsData),
                 ChecklistNW(ticketData: state.tiketsData, networkSelectionAction: (value ) => b2cNetworkSelectionAction(context, value, 'networkSelection', state.tiketsData), faltActionType: state.tiketsData.fieldWorkAction,),
-                const BusyHourNW(),
                 const CloseNW(),
               ],
             ),

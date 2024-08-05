@@ -4,12 +4,15 @@ import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
 
 abstract class TicketsSqlInterface {
   Future<void> addNewTicketData(NewTicketModel ticketData);
-  Future<void> updateNewTicketData(String id, NewTicketModel ticketData);
+  Future<void> updateNewTicketData(int id, NewTicketModel ticketData);
   Future<void> deleteNewTicketDataById(String ticketId);
   Future<List<NewTicketModel>> getAllNewTicketData();
+  Future<List<NewTicketModel>> getNewTicketById(int id);
   Future<void> addHistoryTicketData(HistoryTicketModel historyTicket);
-  Future<void> addHistoryTicketsListData(HistoryTicketsListModel historyTicketsList);
-  Future<List<HistoryTicketModel>> getHistoryTicketsByHistoryTicketsListId(int id);
+  Future<void> addHistoryTicketsListData(
+      HistoryTicketsListModel historyTicketsList);
+  Future<List<HistoryTicketModel>> getHistoryTicketsByHistoryTicketsListId(
+      int id);
   Future<List<HistoryTicketsListModel>> getHistoryTicketsListAllData();
   Future<void> deleteHistoryTicketsAllData();
 }

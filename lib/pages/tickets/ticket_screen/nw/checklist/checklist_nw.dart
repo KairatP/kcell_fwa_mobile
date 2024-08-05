@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kcell_fwa_mobile/envirement/colors.dart';
 import 'package:kcell_fwa_mobile/envirement/local_environment.dart';
 import 'package:kcell_fwa_mobile/model/new_tickcet_model.dart';
 import 'package:kcell_fwa_mobile/pages/widgets/divider.dart';
@@ -20,13 +21,28 @@ class ChecklistNW extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(55, 248, 131, 121),
+      backgroundColor: AppColors.backgroundChecklistOffice,
       body: ListView(
         children: [
           const TextCell(
-              myText: 'Тип сети:',
-              fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
+            myText: 'Ведущий оператор:',
+            fontSize: 14,
+            color: AppColors.selectorTitleFontColor,
+          ),
+          MySelectorWidget(
+            title: 'Ведущий оператор',
+            items: env.neworkOwner,
+            selectionAction: (value) {
+              print(value);
+            },
+            hintText: 'Выбрать значение',
+          ),
+          const MyDivider(),
+          const TextCell(
+            myText: 'Тип сети:',
+            fontSize: 14,
+            color: AppColors.selectorTitleFontColor,
+          ),
           MySelectorWidget(
             title: 'Тип сети',
             items: env.networkType,
@@ -36,10 +52,67 @@ class ChecklistNW extends StatelessWidget {
             hintText: 'Выбрать значение',
           ),
           const MyDivider(),
+          Row(
+            children: [
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.only(left: 15, top: 5),
+                  height: 25,
+                  child: const Text(
+                    overflow: TextOverflow.ellipsis,
+                    'ID сайта',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.selectorTitleFontColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          // const MyContainer(),
+          TextFieldCell(
+            myTextController: TextEditingController(),
+            myTextChange: (value) {
+              print(value);
+            },
+          ),
+          const SizedBox(
+            height: 7,
+          ),
+          const MyDivider(),
+          Row(
+            children: [
+              Flexible(
+                child: Container(
+                  padding: const EdgeInsets.only(left: 15, top: 5),
+                  height: 25,
+                  child: const Text(
+                    overflow: TextOverflow.ellipsis,
+                    'Сектор',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: AppColors.selectorTitleFontColor,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          TextFieldCell(
+            myTextController: TextEditingController(),
+            myTextChange: (value) {
+              print(value);
+            },
+          ),
+          const SizedBox(
+            height: 7,
+          ),
+          const MyDivider(),
           const TextCell(
               myText: 'RSRQ:',
               fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
+              color: AppColors.selectorTitleFontColor),
           MySelectorWidget(
             title: 'RSRQ',
             items: env.rSRQ,
@@ -52,7 +125,7 @@ class ChecklistNW extends StatelessWidget {
           const TextCell(
               myText: 'RSRP:',
               fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
+              color: AppColors.selectorTitleFontColor),
           MySelectorWidget(
             title: 'RSRP',
             items: env.rSSI,
@@ -65,7 +138,7 @@ class ChecklistNW extends StatelessWidget {
           const TextCell(
               myText: 'RSSI:',
               fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
+              color: AppColors.selectorTitleFontColor),
           MySelectorWidget(
             title: 'RSSI',
             items: env.rSSI,
@@ -78,7 +151,7 @@ class ChecklistNW extends StatelessWidget {
           const TextCell(
               myText: 'SINR:',
               fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
+              color: AppColors.selectorTitleFontColor),
           MySelectorWidget(
             title: 'SINR',
             items: env.sINR,
@@ -88,58 +161,6 @@ class ChecklistNW extends StatelessWidget {
             hintText: 'Выбрать значение',
           ),
           const MyDivider(),
-          const TextCell(
-              myText: 'Обращения абонента:',
-              fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
-          MySelectorWidget(
-            title: 'Обращения абонента',
-            items: env.subscriberRequests,
-            selectionAction: (value) {
-              print(value);
-            },
-            hintText: 'Выбрать значение',
-          ),
-          const MyDivider(),
-          const TextCell(
-              myText: 'Тип жалобы:',
-              fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
-          MySelectorWidget(
-            title: 'Тип жалобы',
-            items: env.typeOfComplaint,
-            selectionAction: (value) {
-              print(value);
-            },
-            hintText: 'Выбрать значение',
-          ),
-          const MyDivider(),
-          const TextCell(
-              myText: 'Выполненные работы:',
-              fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
-          MySelectorWidget(
-            title: 'Выполненные работы',
-            items: env.workDone,
-            selectionAction: (value) {
-              print(value);
-            },
-            hintText: 'Выбрать значение',
-          ),
-          faltActionType == 'Другое' ? const TextFieldCell() : const SizedBox(),
-          const MyDivider(),
-          const TextCell(
-              myText: 'Operator',
-              fontSize: 14,
-              color: Color.fromARGB(255, 120, 120, 120)),
-          MySelectorWidget(
-            title: 'Ведущий оператор',
-            items: env.neworkOwner,
-            selectionAction: (value) {
-              print(value);
-            },
-            hintText: 'Выбрать значение',
-          ),
         ],
       ),
     );

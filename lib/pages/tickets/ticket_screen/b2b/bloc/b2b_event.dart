@@ -4,11 +4,11 @@ abstract class B2BEvent {}
  
 class B2BSelectionEvent extends B2BEvent {
   B2BSelectionEvent(
-      {required this.typeRequest,
-      required this.selectedData,
+      {required this.selectionType,
+      required this.value,
       required this.ticketsData});
-  final String typeRequest;
-  final String selectedData;
+  final String selectionType;
+  final String value;
   final NewTicketModel ticketsData;
 }
  
